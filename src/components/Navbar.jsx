@@ -1,24 +1,20 @@
-
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../features/authSlice';
-import { useNavigate } from 'react-router-dom';
-import { Button, message } from 'antd';
+import { Switch } from 'antd';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    message.info('You have been logged out');
-    navigate('/login');
-  };
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
-    <nav>
-      <Button onClick={handleLogout}>Logout</Button>
-    </nav>
+    <div style={{ padding: 16, display: 'flex', justifyContent: 'space-between' }}>
+      <h2 style={{ color: darkMode ? '#fff' : '#000' }}>Course Dashboard</h2>
+      <Switch
+        checked={darkMode}
+        onChange={toggleTheme}
+        checkedChildren="Dark"
+        unCheckedChildren="Light"
+      />
+    </div>
   );
 };
 

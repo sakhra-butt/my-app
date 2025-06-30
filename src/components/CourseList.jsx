@@ -4,7 +4,7 @@ import { Button, List } from 'antd';
 import { deleteCourse } from '../features/coursesSlice';
 
 const CourseList = ({ onEdit, isAdmin }) => {
-  const courses = useSelector((state) => state.courses.courses);
+  const courses = useSelector((state) => state.courses.items);
   const dispatch = useDispatch();
 
   return (

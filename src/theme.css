@@ -1,0 +1,67 @@
+/* Light Theme */
+.light-theme {
+  background-color: #fff;
+  color: #000;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* Dark Theme */
+.dark-theme {
+  background-color: #121212;
+  color: #fff;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* Ensure AntD List items show in dark */
+.dark-theme .ant-list-item {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+/* Explicitly make AntD headings white in dark mode */
+.dark-theme .ant-typography,
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4,
+.dark-theme h5,
+.dark-theme h6 {
+  color: #ffffff !important;
+}
+
+/* Buttons in dark theme */
+.dark-theme .ant-btn {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+/* Optional: Input field text color */
+.dark-theme input {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: #333;
+}
+/* ✅ Dark mode input styling fix */
+.dark-theme input {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+
+/* Optional: placeholder color in dark mode */
+.dark-theme input::placeholder {
+  color: #aaaaaa;
+}
+
+/* Optional: override Ant Design button if needed */
+.dark-theme .ant-btn {
+  background-color: #333 !important;
+  color: #fff !important;
+  border: 1px solid #555;
+}
+
+.dark-theme .ant-form-item {
+  color: #fff;
+}

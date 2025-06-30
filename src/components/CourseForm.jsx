@@ -20,7 +20,7 @@ const CourseForm = ({ selected, setSelected }) => {
     if (selected) {
       dispatch(updateCourse({ ...selected, name: values.name }));
     } else {
-      dispatch(addCourse({ name: values.name }));
+      dispatch(addCourse({ id: Date.now(), name: values.name }));
     }
     resetForm();
     setSelected(null);
@@ -52,3 +52,4 @@ const CourseForm = ({ selected, setSelected }) => {
 };
 
 export default CourseForm;
+

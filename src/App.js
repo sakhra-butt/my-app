@@ -14,8 +14,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/admin" element={user?.role === 'admin' ? <AdminPage /> : <Navigate to="/" />} />
-        <Route path="/user" element={user?.role === 'user' ? <UserPage /> : <Navigate to="/" />} />
+        <Route
+          path="/admin"
+          element={user?.role === 'admin' ? <AdminPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/user"
+          element={user?.role === 'user' ? <UserPage /> : <Navigate to="/" />}
+        />
       </Routes>
     </Router>
   );
