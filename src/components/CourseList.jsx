@@ -1,30 +1,23 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, List } from 'antd';
-import { deleteCourse } from '../features/coursesSlice';
+import { List, Button, Card } from 'antd';
 
-const CourseList = ({ onEdit, isAdmin }) => {
-  const courses = useSelector((state) => state.courses.items);
-  const dispatch = useDispatch();
-
+const CourseList = ({ courses, isAdmin, onEdit, onDelete }) => {
   return (
     <List
-      bordered
       dataSource={courses}
-      renderItem={(item) => (
-        <List.Item
-          actions={
-            isAdmin
-              ? [
-                  <Button onClick={() => onEdit(item)}>Edit</Button>,
-                  <Button danger onClick={() => dispatch(deleteCourse(item.id))}>
-                    Delete
-                  </Button>,
-                ]
-              : []
-          }
-        >
-          {item.name}
+      renderItem={(course) => (
+        <List.Item>
+          <Card title={course.title}>
+            <p>{course.description}</p>
+            {isAdmin && (
+              <>
+                <Button onClick={() => onEdit(course)} style={{ marginRight: 8 }}>
+                  Edit
+                </Button>
+                <Button danger onClick={() => onDelete(course.id)}>Delete</Button>
+              </>
+            )}
+          </Card>
         </List.Item>
       )}
     />

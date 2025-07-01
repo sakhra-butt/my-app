@@ -1,85 +1,99 @@
-// src/pages/LoginPage.jsx
-import React from 'react';
+import React, { useState } from 'react';
+import { Form, Input, Button, Typography, message } from 'antd';
 import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import { Input, Button, Typography, Form as AntForm, message } from 'antd';
 import { login } from '../features/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
+import Switch from 'react-switch';
 
 const { Title } = Typography;
+
+const credentials = {
+  admin: { email: 'admin@example.com', password: 'admin123' },
+  user: { email: 'user@example.com', password: 'user123' },
+};
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+  const role = new URLSearchParams(location.search).get('role');
+  const [selectedRole, setSelectedRole] = useState(role);
 
-  const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().required('Password is required'),
-  });
-
-  const handleSubmit = (values) => {
-    // Simple static login logic (in real apps, validate with backend)
+  const handleLogin = (values) => {
     const { email, password } = values;
+    const valid = credentials[selectedRole];
 
-    if (email === 'admin@example.com' && password === 'admin123') {
-      dispatch(login({ email, role: 'admin' }));
-      navigate('/admin');
-    } else if (email === 'user@example.com' && password === 'user123') {
-      dispatch(login({ email, role: 'user' }));
-      navigate('/user');
+    if (valid && email === valid.email && password === valid.password) {
+      dispatch(login({ email, role: selectedRole }));
+      navigate(selectedRole === 'admin' ? '/admin' : '/user');
     } else {
       message.error('Invalid credentials');
     }
   };
 
+  const handleSelect = (role) => {
+    setSelectedRole(role);
+    navigate(`/login?role=${role}`);
+  };
+
   return (
-    <div style={{ maxWidth: 400, margin: '100px auto' }}>
-      <Title level={2}>Login</Title>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values, handleChange, handleBlur, errors, touched }) => (
-          <Form>
-            <AntForm.Item
-              validateStatus={touched.email && errors.email ? 'error' : ''}
-              help={touched.email && errors.email ? errors.email : ''}
-            >
-              <Input
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-            </AntForm.Item>
+    <div className={`login-page ${theme}-theme`} style={{ padding: 40, maxWidth: 400, margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <strong style={{ fontSize: 20 }}>My App</strong>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <label style={{ marginRight: 8 }}>{theme === 'dark' ? 'Dark' : 'Light'}</label>
+          <Switch onChange={toggleTheme} checked={theme === 'dark'} />
+        </div>
+      </div>
 
-            <AntForm.Item
-              validateStatus={touched.password && errors.password ? 'error' : ''}
-              help={touched.password && errors.password ? errors.password : ''}
-            >
-              <Input.Password
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-            </AntForm.Item>
+      {!selectedRole ? (
+        <>
+      
+  <Title level={3}>Login as</Title>
 
-            <Button type="primary" htmlType="submit" block>
-              Login
-            </Button>
+<Button
+  type="default"
+  block
+  className="role-button"
+  style={{ marginBottom: 16 }}
+  onClick={() => handleSelect('admin')}
+>
+  Admin
+</Button>
+
+<Button
+  type="default"
+  block
+  className="role-button"
+  onClick={() => handleSelect('user')}
+>
+  User
+</Button>
+
+
+        </>
+      ) : (
+        <>
+          <Title level={3}>Login as {selectedRole}</Title>
+          <Form layout="vertical" onFinish={handleLogin}>
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Email is required' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Password is required' }]}>
+              <Input.Password />
+            </Form.Item>
+            <Form.Item>
+            <Button type="primary" htmlType="submit" block className="login-btn">
+  Login
+</Button>
+
+            </Form.Item>
           </Form>
-        )}
-      </Formik>
+        </>
+      )}
     </div>
   );
 };

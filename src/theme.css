@@ -2,7 +2,6 @@
 .light-theme {
   background-color: #fff;
   color: #000;
-  min-height: 100vh;
   transition: all 0.3s ease;
 }
 
@@ -10,58 +9,160 @@
 .dark-theme {
   background-color: #121212;
   color: #fff;
-  min-height: 100vh;
   transition: all 0.3s ease;
 }
 
-/* Ensure AntD List items show in dark */
-.dark-theme .ant-list-item {
+/* Ant Design Card in Dark Mode */
+.dark-theme .ant-card {
   background-color: #1e1e1e;
   color: #fff;
 }
 
-/* Explicitly make AntD headings white in dark mode */
-.dark-theme .ant-typography,
+/* Ant Design Card Header in Dark Mode */
+.dark-theme .ant-card .ant-card-head {
+  color: #fff;
+}
+
+/* Buttons and Inputs in Dark Mode */
+.dark-theme .ant-input,
+.dark-theme .ant-btn {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+/* Light theme: black text on light background */
+.light-theme .ant-card .ant-card-head {
+  color: #000;
+  background-color: #fff;
+}
+
+/* Dark theme: white text on dark background */
+.dark-theme .ant-card .ant-card-head {
+  color: #fff;
+  background-color: #1e1e1e;
+}
+/* Navbar styling */
+.navbar {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Light theme navbar background */
+.light-theme .navbar {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* Dark theme navbar background */
+.dark-theme .navbar {
+  background-color: #333;
+  color: #fff;
+}
 .dark-theme h1,
 .dark-theme h2,
 .dark-theme h3,
 .dark-theme h4,
 .dark-theme h5,
-.dark-theme h6 {
+.dark-theme h6,
+.dark-theme .ant-typography {
   color: #ffffff !important;
 }
-
-/* Buttons in dark theme */
-.dark-theme .ant-btn {
-  background-color: #1890ff;
-  color: #fff;
+.light-theme .themed-box {
+  background-color: #f0f0f0;
+  color: black;
 }
 
-/* Optional: Input field text color */
-.dark-theme input {
-  background-color: #1e1e1e;
-  color: #fff;
-  border-color: #333;
+.dark-theme .themed-box {
+  background-color: #333;
+  color: white;
 }
-/* ✅ Dark mode input styling fix */
-.dark-theme input {
-  background-color: #1e1e1e !important;
-  color: #ffffff !important;
-  border: 1px solid #444 !important;
+.role-button {
+  transition: all 0.3s ease;
 }
 
-/* Optional: placeholder color in dark mode */
-.dark-theme input::placeholder {
-  color: #aaaaaa;
-}
-
-/* Optional: override Ant Design button if needed */
-.dark-theme .ant-btn {
-  background-color: #333 !important;
+.role-button:hover {
+  background-color: #1677ff !important;
   color: #fff !important;
-  border: 1px solid #555;
+  border-color: #1677ff !important;
+}
+//login page form theme dark/light
+/* === LIGHT THEME === */
+.light-theme .ant-input,
+.light-theme .ant-input-password input {
+  background-color: #fff !important;
+  color: #000000 !important; /* Black text for visibility */
+  border: 1px solid #d9d9d9;
 }
 
-.dark-theme .ant-form-item {
-  color: #fff;
+.light-theme .ant-input::placeholder,
+.light-theme .ant-input-password input::placeholder {
+  color: #000000 !important; /* Black placeholder */
+}
+
+.light-theme .ant-form-item-label > label,
+.light-theme .ant-form-item-explain {
+  color: #000000 !important; /* Black labels and errors */
+}
+
+/* === DARK THEME === */
+.dark-theme .ant-input,
+.dark-theme .ant-input-password input {
+  background-color: #1e1e1e !important;
+  color: #a0a0a0 !important; /* Grey text */
+  border: 1px solid #444;
+}
+
+.dark-theme .ant-input::placeholder,
+.dark-theme .ant-input-password input::placeholder {
+  color: #a0a0a0 !important; /* Grey placeholder */
+}
+
+.dark-theme .ant-form-item-label > label,
+.dark-theme .ant-form-item-explain {
+  color: #a0a0a0 !important; /* Grey labels and errors */
+}
+
+/* Consistent blue button for all themes */
+.login-btn {
+  background-color: #1677ff !important;
+  border-color: #1677ff !important;
+  color: #fff !important;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #0958d9 !important;
+  border-color: #0958d9 !important;
+  color: #fff !important;
+}
+//login as first page
+/* Default style */
+.role-button {
+  background-color: #f0f0f0;
+  color: #000;
+  transition: all 0.3s ease;
+  border: 1px solid #d9d9d9;
+}
+
+/* Hover effect */
+.role-button:hover {
+  background-color: #1677ff !important;
+  color: #fff !important;
+  border-color: #1677ff !important;
+}
+
+/* Active (on click) */
+.role-button:active {
+  background-color: #0958d9 !important; /* darker blue on click */
+  color: #fff !important;
+  border-color: #0958d9 !important;
+}
+
+/* Optional: dark mode base */
+.dark-theme .role-button {
+  background-color: #1e1e1e;
+  color: #ccc;
+  border: 1px solid #444;
 }
